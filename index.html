@@ -29,7 +29,15 @@
          Fluid from mobile to desktop; the upper bound of each clamp is the
          desktop design value, so the reference viewport renders unchanged.  */
       --gap: clamp(8px, 1.5vw, 23px);
-      --pad-x: clamp(14px, 3.6vw, 54px);
+      --gutter: clamp(14px, 3.6vw, 54px);
+
+      /* Masthead and cards share one content column, so both meet the page
+         edge at the same gutter. Its ceiling is the row at design size — three
+         cards and the gaps between them — rather than a chosen number.      */
+      --content-max: calc(
+        var(--card-count) * var(--card-ref-w) * 1px +
+        (var(--card-count) - 1) * var(--gap)
+      );
       --pad-top: clamp(20px, 9.6vh, 94px);
       --pad-bottom: clamp(16px, 3vh, 52px);
       --masthead-gap: clamp(16px, 3vw, 40px);
@@ -62,7 +70,7 @@
       flex-direction: column;
       height: 100svh;
       overflow: hidden;
-      padding: var(--pad-top) var(--pad-x) var(--pad-bottom);
+      padding: var(--pad-top) var(--gutter) var(--pad-bottom);
       background:
         radial-gradient(ellipse 56% 30% at 78% 14%, rgba(255,255,255,.42), transparent 75%),
         radial-gradient(ellipse 50% 40% at 22% 72%, rgba(255,255,255,.25), transparent 75%),
@@ -85,6 +93,14 @@
       width: 0;
       height: 0;
       overflow: hidden;
+    }
+
+    /* Both sections are laid on the same column, so their outer edges line up
+       with each other and sit the same distance from both screen edges. */
+    .masthead,
+    .cards {
+      width: min(100%, var(--content-max));
+      margin-inline: auto;
     }
 
     .masthead {
@@ -163,7 +179,11 @@
       flex: 1 1 auto;
       container-type: size;
       display: flex;
-      justify-content: center;
+      /* Where height is the binding constraint the row is narrower than the
+         column. Spending that slack on the gaps rather than the outside keeps
+         the outer cards on the column edge, level with the masthead. With no
+         slack — the usual case — this is identical to centring.            */
+      justify-content: space-between;
       align-items: center;
       gap: var(--gap);
       min-height: 0;

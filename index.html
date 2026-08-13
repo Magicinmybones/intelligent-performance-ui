@@ -545,11 +545,41 @@
       outline-offset: 3px;
     }
 
+    /* --- Portrait tablet ---------------------------------------------------
+       Two cards then one, rather than three narrow ones. Gated on aspect ratio
+       as well as width, because two rows only pay for themselves where there is
+       height to spend: 6/7 is where the two arrangements yield the same card,
+       measured against this composition, so anything taller gains from the
+       split and a landscape tablet of the same width keeps its single row. The
+       height term divides by two rows, so the fold still holds everything.  */
+    @media (min-width: 768px) and (max-width: 1180px) and (max-aspect-ratio: 6/7) {
+      .cards {
+        display: grid;
+        /* Tracks take their width from the cards. --card-w must not be read
+           here: on .cards its own cq units have no container to resolve
+           against and would fall back to the viewport. */
+        grid-template-columns: repeat(2, max-content);
+        justify-content: center;
+        align-content: center;
+
+        --card-w: min(
+          (100cqw - var(--gap)) / 2,
+          (100cqh - var(--gap)) / 2 * var(--card-ref-w) / var(--card-ref-h),
+          var(--card-ref-w) * 1px
+        );
+      }
+
+      /* The odd card centres itself across both tracks. */
+      .card:last-child {
+        grid-column: 1 / -1;
+        justify-self: center;
+      }
+    }
+
     /* --- Mobile -----------------------------------------------------------
-       The only breakpoint in the stylesheet. Above it the composition is sized
-       to the viewport and never scrolls; here the cards stack, the page grows
-       past the fold and normal scrolling comes back. The card itself is not
-       touched at either side of the boundary — only how many fit on a row. */
+       Below here the cards stack, the page grows past the fold and normal
+       scrolling comes back. The card itself is not touched at any breakpoint —
+       only how many of them share a row. */
     @media (max-width: 767px) {
       html, body { height: auto; overflow: visible; }
 

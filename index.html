@@ -1,0 +1,1299 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#ececeb">
+  <title>Built for Intelligent Performance</title>
+  <style>
+    :root {
+      --paper: #ececeb;
+      --ink: #222222;
+      --copy: #4a4a4a;
+      --card-radius: 17px;
+      --glass-line: rgba(255, 255, 255, .36);
+    }
+
+    * { box-sizing: border-box; }
+
+    html, body { margin: 0; min-width: 100%; min-height: 100%; }
+
+    body {
+      color: var(--ink);
+      background: var(--paper);
+      font-family: Arial, Helvetica, sans-serif;
+      -webkit-font-smoothing: antialiased;
+      text-rendering: geometricPrecision;
+    }
+
+    button, a { font: inherit; }
+
+    .stage {
+      isolation: isolate;
+      position: relative;
+      min-height: 100svh;
+      overflow: hidden;
+      padding: 94px 53px 52px 54px;
+      background:
+        radial-gradient(ellipse 56% 30% at 78% 14%, rgba(255,255,255,.42), transparent 75%),
+        radial-gradient(ellipse 50% 40% at 22% 72%, rgba(255,255,255,.25), transparent 75%),
+        linear-gradient(180deg, #ededec 0%, #eeeeec 100%);
+    }
+
+    .paper-texture {
+      position: absolute;
+      z-index: -1;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      opacity: .68;
+      mix-blend-mode: multiply;
+    }
+
+    .filter-defs {
+      position: absolute;
+      width: 0;
+      height: 0;
+      overflow: hidden;
+    }
+
+    .masthead {
+      position: relative;
+      z-index: 2;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 483px;
+      min-height: 114px;
+      align-items: start;
+    }
+
+    .headline {
+      margin: 0;
+      max-width: 620px;
+      color: #202020;
+      font-size: 47px;
+      font-weight: 400;
+      letter-spacing: .7px;
+      line-height: 57.5px;
+    }
+
+    .headline__line {
+      display: flex;
+      align-items: center;
+      white-space: nowrap;
+    }
+
+    .dot-word {
+      display: inline-block;
+      flex: 0 0 auto;
+      width: 228px;
+      height: 36px;
+      margin-left: 15px;
+      color: #ad314d;
+      transform: translateY(4px);
+    }
+
+    .dot-svg {
+      display: block;
+      overflow: visible;
+      color: inherit;
+    }
+
+    .intro {
+      width: 482px;
+      margin: 7px 0 0;
+      color: var(--copy);
+      font-size: 20.6px;
+      font-weight: 400;
+      letter-spacing: -.35px;
+      line-height: 1.62;
+    }
+
+    .cards {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 23px;
+      margin-top: 92px;
+    }
+
+    .card {
+      container-type: inline-size;
+      position: relative;
+      overflow: hidden;
+      aspect-ratio: 429 / 554;
+      border: 1px solid var(--glass-line);
+      border-radius: var(--card-radius);
+      color: #fff;
+      box-shadow:
+        0 2px 4px rgba(50, 28, 39, .30),
+        inset 0 1px 0 rgba(255,255,255,.24);
+    }
+
+    .card::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+      background:
+        linear-gradient(102deg, rgba(255,255,255,.10), transparent 28%, rgba(255,255,255,.08) 62%, transparent 88%),
+        radial-gradient(ellipse 85% 34% at 54% 7%, rgba(255,255,255,.24), transparent 72%);
+      mix-blend-mode: screen;
+      pointer-events: none;
+    }
+
+    .card--speed {
+      background:
+        radial-gradient(ellipse 34% 24% at 50% 2%, rgba(255, 220, 211, .10) 0%, transparent 76%),
+        radial-gradient(ellipse 44% 34% at 106% 20%, rgba(255, 222, 211, .10) 0%, transparent 74%),
+        radial-gradient(ellipse 40% 27% at 50% 82%, rgba(255, 214, 208, .08) 0%, transparent 74%),
+        radial-gradient(ellipse 43% 31% at -7% 61%, rgba(127, 31, 53, .06) 0%, transparent 74%),
+        radial-gradient(ellipse 47% 34% at 107% 82%, rgba(119, 29, 49, .07) 0%, transparent 74%),
+        linear-gradient(180deg, rgba(255, 246, 241, .43) 0%, rgba(255, 237, 235, .19) 9%, transparent 22%),
+        radial-gradient(ellipse 44% 34% at 50% 111%, rgba(55, 0, 20, .16) 0%, transparent 74%),
+        radial-gradient(ellipse 105% 32% at 50% 80%, rgba(255, 218, 204, .20) 0%, rgba(255, 205, 196, .10) 48%, transparent 78%),
+        radial-gradient(ellipse 55% 22% at -5% 39%, rgba(240, 250, 200, .15) 0%, transparent 76%),
+        radial-gradient(ellipse 64% 49% at -8% 106%, rgba(255, 222, 199, .48) 0%, rgba(255, 204, 192, .25) 49%, transparent 78%),
+        radial-gradient(ellipse 64% 49% at 108% 106%, rgba(255, 222, 199, .43) 0%, rgba(255, 204, 192, .22) 49%, transparent 78%),
+        radial-gradient(ellipse 52% 54% at -8% 44%, rgba(255, 216, 207, .20) 0%, transparent 77%),
+        radial-gradient(ellipse 68% 45% at -4% -3%, rgba(255, 235, 232, .73) 0%, rgba(255, 226, 226, .41) 46%, transparent 77%),
+        radial-gradient(ellipse 70% 45% at 104% -4%, rgba(255, 238, 233, .78) 0%, rgba(255, 226, 226, .42) 48%, transparent 78%),
+        radial-gradient(ellipse 93% 47% at 106% 58%, rgba(245, 247, 241, .73) 0%, rgba(246, 231, 229, .42) 48%, transparent 76%),
+        radial-gradient(ellipse 74% 40% at -8% 73%, rgba(255, 210, 190, .48) 0%, rgba(255, 194, 181, .25) 48%, transparent 77%),
+        radial-gradient(ellipse 77% 36% at 57% 58%, rgba(255, 226, 218, .30) 0%, rgba(255, 206, 207, .15) 50%, transparent 78%),
+        radial-gradient(ellipse 54% 30% at 50% 17%, rgba(106, 8, 51, .22) 0%, transparent 78%),
+        linear-gradient(180deg, #bd4468 0%, #ad355b 38%, #a63b50 72%, #8c1320 100%);
+    }
+
+    .card--speed::before {
+      background:
+        linear-gradient(103deg, rgba(255,255,255,.08), transparent 31%, rgba(255,255,255,.055) 63%, transparent 88%),
+        radial-gradient(ellipse 92% 19% at 51% 0%, rgba(255,255,255,.08), transparent 78%);
+    }
+
+    .card--speed .card__grain { opacity: .54; }
+    .card--speed .card__title {
+      top: 6.3%;
+      color: #fff;
+      font-size: min(5.3cqw, 22.7px);
+    }
+
+    .card--context {
+      background:
+        radial-gradient(ellipse 118% 66% at 48% -8%, rgba(221,232,255,.065), transparent 74%),
+        radial-gradient(ellipse 106% 52% at 48% 112%, rgba(255,155,139,.075), transparent 73%),
+        radial-gradient(ellipse 82% 15% at 50% 29%, rgba(240,204,244,.24), transparent 81%),
+        radial-gradient(ellipse 64% 18% at 50% 61%, rgba(239,177,208,.17), transparent 81%),
+        radial-gradient(ellipse 43% 42% at -5% 30%, rgba(228,220,255,.53), transparent 78%),
+        radial-gradient(ellipse 43% 42% at 105% 30%, rgba(245,200,210,.54), transparent 78%),
+        radial-gradient(ellipse 70% 48% at 70% 110%, rgba(238,204,201,.62), transparent 77%),
+        radial-gradient(ellipse 70% 23% at 78% 1%, rgba(251,208,226,.56), transparent 78%),
+        radial-gradient(ellipse 78% 25% at 15% 8%, rgba(218,211,255,.54), transparent 79%),
+        radial-gradient(ellipse 38% 31% at 80% 90%, rgba(230,190,191,.38), transparent 74%),
+        radial-gradient(ellipse 45% 26% at 47% 78%, rgba(236,184,183,.45), transparent 73%),
+        linear-gradient(164deg, #c9b5e1 0%, #ad80ca 29%, #9d4f72 64%, #793246 100%);
+    }
+
+    .card--context .card__title {
+      font-size: 23px;
+      line-height: 1.48;
+    }
+
+    .card--context .card__grain { opacity: .68; }
+
+    .card--context::before {
+      background:
+        radial-gradient(ellipse 18% 23% at 20% 32%, rgba(103,41,148,.24), transparent 76%),
+        radial-gradient(ellipse 20% 24% at 81% 30%, rgba(121,34,113,.22), transparent 76%),
+        radial-gradient(ellipse 66% 9% at 50% 30%, rgba(103,33,125,.26), transparent 82%),
+        radial-gradient(ellipse 68% 8% at 50% 69%, rgba(86,27,64,.23), transparent 83%),
+        linear-gradient(103deg, rgba(255,255,255,.08), transparent 31%, rgba(255,255,255,.05) 63%, transparent 88%);
+      mix-blend-mode: multiply;
+      opacity: .54;
+    }
+
+    .card--connections {
+      background:
+        radial-gradient(ellipse 62% 24% at 58% 4%, rgba(255,210,198,.16), transparent 74%),
+        radial-gradient(ellipse 70% 42% at 60% 47%, rgba(255,171,91,.48), transparent 68%),
+        radial-gradient(ellipse 76% 55% at 90% 28%, rgba(255,207,178,.42), transparent 74%),
+        linear-gradient(158deg, #dc4937 0%, #d84f37 37%, #e96a40 56%, #ce243e 100%);
+    }
+
+    .card__grain {
+      position: absolute;
+      z-index: 1;
+      inset: -8%;
+      width: 116%;
+      height: 116%;
+      opacity: .46;
+      mix-blend-mode: soft-light;
+      pointer-events: none;
+    }
+
+    .card__title {
+      position: absolute;
+      z-index: 4;
+      top: 6.1%;
+      left: 5%;
+      width: 90%;
+      margin: 0;
+      color: rgba(255,255,255,.96);
+      font-size: clamp(17px, 5.35cqw, 23px);
+      font-weight: 600;
+      letter-spacing: 0;
+      line-height: 1.48;
+      text-align: center;
+      text-shadow: 0 1px 1px rgba(72,28,48,.14);
+    }
+
+    .gauge {
+      position: absolute;
+      z-index: 2;
+      top: 27.63%;
+      left: 10.5%;
+      width: 79%;
+      height: 59%;
+      overflow: visible;
+      opacity: 1;
+    }
+
+    .gauge .outer-ring { stroke: url(#gaugeArc); }
+    .gauge .arc-shadow { stroke: url(#gaugeShadow); }
+    .gauge .fine-ring { stroke: rgba(255,166,194,.31); }
+    .gauge .tick { stroke: rgba(255,188,210,.34); }
+
+    .context-glow {
+      position: absolute;
+      z-index: 0;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      overflow: visible;
+      background: none;
+      opacity: 1;
+      pointer-events: none;
+    }
+
+    .context-backdrop {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      overflow: visible;
+      opacity: 1;
+    }
+
+    .context-window {
+      position: absolute;
+      z-index: 3;
+      top: 32.4%;
+      left: 20.4%;
+      width: 59%;
+      height: 30.1%;
+      overflow: hidden;
+      border: none;
+      border-radius: 10px;
+      background:
+        linear-gradient(0deg, rgba(255,255,255,.30) 0%, rgba(255,255,255,.15) 45%, rgba(255,255,255,0) 80%),
+        linear-gradient(270deg, rgba(213,62,152,.62) 0px, rgba(213,62,152,0) 5px),
+        radial-gradient(ellipse 118% 70% at 60% 8%, rgba(255,203,252,.34), transparent 74%),
+        linear-gradient(105deg, rgba(250,232,250,.72) 0%, rgba(238,120,214,.68) 51%, rgba(222,86,177,.82) 100%);
+      box-shadow:
+        0 13px 25px rgba(70,17,69,.31),
+        inset 0 1px 0 rgba(255,255,255,.12);
+      backdrop-filter: blur(9px) saturate(1.08);
+    }
+
+    .context-window__grain {
+      position: absolute;
+      z-index: 0;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      opacity: .24;
+      mix-blend-mode: soft-light;
+      pointer-events: none;
+    }
+
+    .window-lines {
+      position: absolute;
+      z-index: 1;
+      top: 9%;
+      left: 6.7%;
+      width: 87%;
+      height: 24%;
+    }
+
+    .window-lines span {
+      display: block;
+      height: 6px;
+      border-radius: 2.5px;
+      background: rgba(255,255,255,.72);
+    }
+
+    .window-lines span:first-child { width: 29%; margin-bottom: 3px; }
+    .window-lines span:nth-child(2) {
+      width: 100%;
+      height: 22px;
+      border-radius: 6px;
+      background: linear-gradient(90deg, rgba(255,240,253,.72), rgba(255,170,242,.75) 42%, rgba(255,108,235,.78));
+    }
+    .window-lines span:nth-child(3) { width: 86%; margin-top: 3px; opacity: .64; }
+
+    .connections-map {
+      position: absolute;
+      z-index: 2;
+      top: 21.7%;
+      left: 0;
+      width: 100%;
+      height: 43%;
+      overflow: visible;
+      opacity: .72;
+    }
+
+    .metric {
+      position: absolute;
+      z-index: 5;
+      left: 0;
+      width: 100%;
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+      color: rgba(255,255,255,.97);
+      filter: drop-shadow(0 1px 1px rgba(104,27,54,.08));
+    }
+
+    .metric--speed { top: 48.6%; }
+    .metric--context { top: 48.0%; }
+    .metric--connections { top: 48.5%; }
+    .metric--context,
+    .metric--connections { transform: translateX(2.1cqw); }
+
+    .dot-number { display: block; flex: 0 0 auto; }
+    .dot-number .dot-svg { width: 100%; height: auto; }
+    .metric--speed .dot-number { width: 31.2%; }
+    .metric--speed .dot-svg {
+      transform: translate(4px, 2px) scale(.925, 1.018);
+      transform-origin: left top;
+    }
+    .metric--speed .dot-svg circle { r: 2.05px; fill-opacity: 1; }
+    .metric--context .dot-number { width: 30.5%; }
+    .metric--context .dot-svg {
+      transform: translate(-1px, -.5px) scale(.96, 1.02);
+      transform-origin: center;
+    }
+    .metric--connections .dot-number { width: 23%; }
+
+    .metric__unit {
+      margin: 0 0 0 1.3%;
+      font-size: clamp(20px, 7.1cqw, 31px);
+      font-weight: 400;
+      line-height: 1;
+      letter-spacing: -.8px;
+    }
+
+    .metric--context .metric__unit { margin-left: 1.3%; }
+    .metric--speed .metric__unit {
+      margin-left: 1%;
+      font-size: 30.6px;
+      transform: translateY(5px);
+    }
+
+    .caption {
+      position: absolute;
+      z-index: 5;
+      top: 65.1%;
+      left: 10%;
+      width: 80%;
+      margin: 0;
+      color: rgba(255,255,255,.87);
+      font-size: clamp(15px, 4.65cqw, 20px);
+      font-weight: 400;
+      letter-spacing: -.36px;
+      line-height: 1.45;
+      text-align: center;
+      text-shadow: 0 1px 2px rgba(60,21,35,.16);
+    }
+
+    .card--speed .caption { top: 64.75%; font-size: min(4.74cqw, 20.35px); }
+    .card--context .caption {
+      top: 64.9%;
+      font-size: 20px;
+      line-height: 1.4;
+    }
+    .card--context .learn-more { top: 83.9%; height: 44px; }
+    .card--speed .learn-more { top: 83.9%; width: 111px; height: 44px; }
+
+    .learn-more {
+      position: absolute;
+      z-index: 6;
+      top: 83.75%;
+      left: 50%;
+      width: 111px;
+      height: 45px;
+      transform: translateX(-50%);
+      border: 0;
+      border-radius: 999px;
+      color: #2d2d2d;
+      background: rgba(255,255,255,.97);
+      box-shadow:
+        0 1px 0 rgba(255,255,255,.50) inset,
+        0 1px 3px rgba(58,25,39,.08);
+      cursor: pointer;
+      font-size: 14px;
+      font-weight: 400;
+      letter-spacing: -.25px;
+      transition: transform .18s ease, box-shadow .18s ease;
+    }
+
+    .learn-more:hover {
+      transform: translateX(-50%) translateY(-2px);
+      box-shadow: 0 8px 20px rgba(58,25,39,.16);
+    }
+
+    .learn-more:focus-visible {
+      outline: 3px solid rgba(255,255,255,.78);
+      outline-offset: 3px;
+    }
+
+    @media (max-width: 1180px) {
+      .stage { padding: 64px 34px 44px; }
+      .masthead { grid-template-columns: minmax(0, 1fr) minmax(360px, 42%); min-height: 102px; }
+      .headline { font-size: clamp(42px, 4.2vw, 50px); }
+      .intro { width: 100%; font-size: 18px; line-height: 1.55; }
+      .cards { gap: 16px; margin-top: 64px; }
+      .learn-more { width: 26%; min-width: 94px; height: 8.1%; min-height: 38px; }
+    }
+
+    @media (min-width: 841px) {
+      html,
+      body { height: 100%; overflow: hidden; }
+
+      .stage {
+        height: 100svh;
+        min-height: 0;
+        overflow: hidden;
+      }
+    }
+
+    @media (min-width: 1181px) {
+      .cards {
+        width: min(100%, 1333px, calc(232.31svh - 774px));
+        margin-inline: auto;
+      }
+    }
+
+    @media (min-width: 1181px) and (max-height: 780px) {
+      .stage { padding: 48px 53px 36px 54px; }
+      .masthead { min-height: 92px; }
+      .headline {
+        font-size: 40px;
+        line-height: 46px;
+        letter-spacing: .2px;
+      }
+
+      .dot-word {
+        width: 196px;
+        height: 31px;
+        margin-left: 12px;
+        transform: translateY(3px);
+      }
+
+      .intro {
+        margin-top: 3px;
+        font-size: 16px;
+        line-height: 1.5;
+      }
+
+      .cards {
+        width: min(100%, 1333px, calc(232.31svh - 465px));
+        margin-top: 44px;
+      }
+    }
+
+    @media (min-width: 841px) and (max-width: 1180px) {
+      .cards {
+        width: min(100%, calc(232.31svh - 605px));
+        margin-inline: auto;
+      }
+    }
+
+    @media (max-width: 840px) {
+      html,
+      body { height: 100%; overflow: hidden; }
+
+      .stage {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        height: 100svh;
+        min-height: 0;
+        padding: clamp(14px, 2.35vh, 24px) clamp(12px, 3vw, 24px);
+        overflow: hidden;
+      }
+
+      .desktop-break { display: none; }
+      .masthead { display: block; flex: 0 0 auto; min-height: 0; }
+      .headline {
+        max-width: 100%;
+        font-size: clamp(28px, 6.15vw, 46px);
+        line-height: 1.04;
+        letter-spacing: -.6px;
+      }
+
+      .intro {
+        width: min(100%, 620px);
+        max-width: 100%;
+        margin-top: clamp(8px, 1.6vh, 16px);
+        font-size: clamp(13px, 2.15vw, 18px);
+        line-height: 1.38;
+      }
+
+      .cards {
+        flex: 1 1 auto;
+        align-items: center;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: clamp(8px, 1.55vw, 14px);
+        width: 100%;
+        min-height: 0;
+        margin: clamp(12px, 2vh, 22px) 0 0;
+      }
+
+      .card { width: 100%; border-radius: clamp(10px, 2.4cqw, 17px); }
+      .card__title { font-size: clamp(10px, 5.05cqw, 20px); line-height: 1.36; }
+      .caption { font-size: clamp(9px, 4.35cqw, 18px); }
+      .metric__unit { font-size: clamp(13px, 7cqw, 27px); }
+      .learn-more {
+        width: 29%;
+        min-width: 0;
+        height: 8.4%;
+        min-height: 24px;
+        font-size: clamp(8px, 3.1cqw, 13px);
+      }
+    }
+
+    @media (min-width: 521px) and (max-width: 840px) and (orientation: portrait) {
+      .cards {
+        align-items: stretch;
+        grid-template: repeat(3, minmax(0, 1fr)) / 1fr;
+        gap: clamp(8px, 1vh, 12px);
+        margin-top: clamp(12px, 1.5vh, 18px);
+      }
+
+      .card {
+        container-type: size;
+        width: 100%;
+        height: 100%;
+        min-height: 0;
+        aspect-ratio: auto;
+        border-radius: clamp(11px, 2vw, 15px);
+      }
+
+      .card__title {
+        top: 4.5%;
+        left: 2%;
+        width: 96%;
+        font-size: clamp(14px, 2.4vw, 18px);
+        line-height: 1.22;
+      }
+      .card--speed .card__title { top: 4.5%; font-size: clamp(14px, 2.4vw, 18px); }
+
+      .gauge { top: 19%; left: 2%; width: 47%; height: 79%; }
+      .context-glow { top: 19%; left: 0; width: 53%; height: 73%; }
+      .context-window { top: 28%; left: 5%; width: 43%; height: 57%; border-radius: 10px; }
+      .connections-map { top: 23%; left: 0; width: 53%; height: 70%; }
+
+      .metric {
+        left: 0;
+        width: 53%;
+        transform: none;
+      }
+
+      .metric--speed,
+      .metric--context,
+      .metric--connections { top: 47%; }
+
+      .metric--speed .dot-number { width: 31.2%; }
+      .metric--context .dot-number { width: 30.5%; }
+      .metric--connections .dot-number { width: 23%; }
+      .metric__unit { margin-left: 1.4%; font-size: clamp(15px, 2.6vw, 20px); }
+      .metric--speed .dot-svg { transform: none; }
+      .metric--speed .metric__unit { font-size: clamp(15px, 2.6vw, 20px); transform: none; }
+
+      .caption {
+        top: 39%;
+        left: 55%;
+        width: 42%;
+        font-size: clamp(13px, 2.2vw, 17px);
+        line-height: 1.25;
+      }
+      .card--speed .caption { top: 39%; font-size: clamp(13px, 2.2vw, 17px); }
+
+      .learn-more {
+        top: 67%;
+        left: 76%;
+        width: clamp(92px, 15vw, 111px);
+        height: clamp(32px, 4.5vh, 40px);
+        min-height: 0;
+        font-size: clamp(11px, 1.8vw, 14px);
+      }
+      .card--speed .learn-more {
+        top: 67%;
+        width: clamp(92px, 15vw, 111px);
+        height: clamp(32px, 4.5vh, 40px);
+      }
+    }
+
+    @media (max-width: 520px) {
+      .stage {
+        padding: max(10px, env(safe-area-inset-top)) 10px max(10px, env(safe-area-inset-bottom));
+      }
+
+      .headline {
+        font-size: clamp(24px, 8vw, 31px);
+        line-height: 1.02;
+        letter-spacing: -.7px;
+      }
+
+      .headline__line:first-child {
+        display: flex;
+        align-items: center;
+        white-space: nowrap;
+      }
+
+      .headline__line:last-child { display: block; }
+      .dot-word {
+        display: inline-block;
+        width: clamp(128px, 40vw, 154px);
+        height: auto;
+        aspect-ratio: 230 / 36;
+        margin: 0 0 0 8px;
+        transform: none;
+      }
+
+      .intro {
+        width: 100%;
+        margin-top: 6px;
+        font-size: clamp(10px, 3vw, 12px);
+        line-height: 1.28;
+      }
+
+      .cards {
+        align-items: stretch;
+        grid-template: repeat(3, minmax(0, 1fr)) / 1fr;
+        gap: clamp(5px, 1vh, 8px);
+        margin-top: clamp(7px, 1.2vh, 10px);
+      }
+
+      .card {
+        container-type: size;
+        width: 100%;
+        height: 100%;
+        min-height: 0;
+        aspect-ratio: auto;
+        border-radius: clamp(8px, 2.8vw, 12px);
+      }
+
+      .card__title {
+        top: 4.5%;
+        left: 2%;
+        width: 96%;
+        font-size: clamp(10px, 3.2vw, 14px);
+        line-height: 1.22;
+        letter-spacing: 0;
+      }
+      .card--speed .card__title { top: 4.5%; font-size: clamp(10px, 3.2vw, 14px); }
+
+      .gauge {
+        top: 20%;
+        left: 1%;
+        width: 49%;
+        height: 78%;
+      }
+
+      .context-glow { top: 20%; left: 0; width: 54%; height: 72%; }
+      .context-window { top: 29%; left: 4%; width: 45%; height: 55%; border-radius: 8px; }
+      .connections-map { top: 24%; left: 0; width: 54%; height: 68%; }
+
+      .metric {
+        left: 0;
+        width: 53%;
+        transform: none;
+      }
+
+      .metric--speed,
+      .metric--context,
+      .metric--connections { top: 48%; }
+
+      .metric--speed .dot-number { width: 36%; }
+      .metric--context .dot-number { width: 30.5%; }
+      .metric--connections .dot-number { width: 29%; }
+      .metric__unit { margin-left: 1.4%; font-size: clamp(11px, 4vw, 16px); }
+      .metric--speed .dot-svg { transform: none; }
+      .metric--speed .metric__unit { font-size: clamp(11px, 4vw, 16px); transform: none; }
+
+      .caption {
+        top: 38%;
+        left: 55%;
+        width: 42%;
+        font-size: clamp(9px, 2.9vw, 12px);
+        line-height: 1.25;
+      }
+      .card--speed .caption { top: 38%; font-size: clamp(9px, 2.9vw, 12px); }
+
+      .learn-more {
+        top: 67%;
+        left: 76%;
+        width: clamp(68px, 21.5vw, 84px);
+        height: clamp(24px, 4.7vh, 31px);
+        min-height: 0;
+        font-size: clamp(9px, 2.7vw, 11px);
+      }
+      .card--speed .learn-more {
+        top: 67%;
+        width: clamp(68px, 21.5vw, 84px);
+        height: clamp(24px, 4.7vh, 31px);
+      }
+    }
+
+    @media (max-width: 520px) and (max-height: 560px) {
+      .stage { padding-block: max(5px, env(safe-area-inset-top)) max(5px, env(safe-area-inset-bottom)); }
+      .headline { font-size: clamp(20px, 6.2vw, 24px); }
+      .dot-word { width: clamp(105px, 34vw, 132px); margin-left: 6px; }
+      .intro { margin-top: 3px; font-size: clamp(8px, 2.5vw, 10px); line-height: 1.16; }
+      .cards { gap: 4px; margin-top: 5px; }
+      .card__title { top: 3%; font-size: clamp(8px, 2.65vw, 10px); }
+      .card--speed .card__title { top: 3%; font-size: clamp(8px, 2.65vw, 10px); }
+      .caption { font-size: clamp(7px, 2.2vw, 9px); }
+      .card--speed .caption { font-size: clamp(7px, 2.2vw, 9px); }
+      .metric__unit { font-size: clamp(9px, 3vw, 12px); }
+      .learn-more { top: 66%; width: 62px; height: 20px; font-size: 8px; }
+      .card--speed .learn-more { top: 66%; width: 62px; height: 20px; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; }
+    }
+  </style>
+</head>
+<body>
+  <main class="stage">
+    <svg class="filter-defs" aria-hidden="true">
+      <defs>
+        <filter id="cardNoise" x="-20%" y="-20%" width="140%" height="140%">
+          <feTurbulence type="fractalNoise" baseFrequency=".54" numOctaves="3" seed="27" stitchTiles="stitch"/>
+          <feColorMatrix type="saturate" values="0"/>
+          <feComponentTransfer>
+            <feFuncR type="linear" slope="1.8" intercept="-.25"/>
+            <feFuncG type="linear" slope="1.8" intercept="-.25"/>
+            <feFuncB type="linear" slope="1.8" intercept="-.25"/>
+            <feFuncA type="table" tableValues="0 .52"/>
+          </feComponentTransfer>
+        </filter>
+      </defs>
+    </svg>
+
+    <svg class="paper-texture" aria-hidden="true" preserveAspectRatio="none">
+      <defs>
+        <filter id="paperNoise" x="-10%" y="-10%" width="120%" height="120%">
+          <feTurbulence type="fractalNoise" baseFrequency=".12 .32" numOctaves="3" seed="8" stitchTiles="stitch"/>
+          <feColorMatrix type="saturate" values="0"/>
+          <feComponentTransfer><feFuncA type="table" tableValues="0 .33"/></feComponentTransfer>
+        </filter>
+        <pattern id="paperFiber" width="17" height="17" patternUnits="userSpaceOnUse" patternTransform="rotate(17)">
+          <path d="M0 2H17M0 7H17M0 13H17" stroke="#777" stroke-opacity=".045" stroke-width="1"/>
+          <path d="M3 0V17M11 0V17" stroke="#fff" stroke-opacity=".14" stroke-width="1"/>
+        </pattern>
+      </defs>
+      <rect width="100%" height="100%" fill="url(#paperFiber)"/>
+      <rect x="-5%" y="-5%" width="110%" height="110%" filter="url(#paperNoise)" opacity=".74"/>
+    </svg>
+
+    <header class="masthead">
+      <h1 class="headline">
+        <span class="headline__line">Built for <span class="dot-word" data-dots="Intelligent" aria-label="Intelligent"></span></span>
+        <span class="headline__line">Performance</span>
+      </h1>
+      <p class="intro">Every capability is engineered for speed, scale and<br class="desktop-break"> contextual understanding, giving your AI the foundation<br class="desktop-break"> to reason, adapt and perform in production.</p>
+    </header>
+
+    <section class="cards" aria-label="Performance capabilities">
+      <article class="card card--speed">
+        <svg class="card__grain" viewBox="0 0 429 554" preserveAspectRatio="none" aria-hidden="true"><rect width="429" height="554" filter="url(#cardNoise)"/></svg>
+        <h2 class="card__title">Inference Speed<br>AI Response Latency</h2>
+
+        <svg class="gauge" viewBox="0 0 326 326" aria-hidden="true">
+          <defs>
+            <linearGradient id="gaugeArc" gradientUnits="userSpaceOnUse" x1="7" y1="136" x2="312" y2="109">
+              <stop stop-color="#ff9ab7" stop-opacity=".06"/>
+              <stop offset=".08" stop-color="#ff8caf" stop-opacity=".44"/>
+              <stop offset=".34" stop-color="#ff6796" stop-opacity=".94"/>
+              <stop offset=".58" stop-color="#ff6796" stop-opacity="1"/>
+              <stop offset=".82" stop-color="#ffe7ed" stop-opacity=".74"/>
+              <stop offset=".94" stop-color="#fff8fa" stop-opacity=".28"/>
+              <stop offset="1" stop-color="#fff" stop-opacity="0"/>
+            </linearGradient>
+            <linearGradient id="gaugeShadow" gradientUnits="userSpaceOnUse" x1="11" y1="136" x2="308" y2="110">
+              <stop stop-color="#6e1639" stop-opacity=".04"/>
+              <stop offset=".09" stop-color="#6e1639" stop-opacity=".17"/>
+              <stop offset=".52" stop-color="#72163d" stop-opacity=".18"/>
+              <stop offset=".78" stop-color="#7b1a43" stop-opacity=".1"/>
+              <stop offset="1" stop-color="#7b1a43" stop-opacity="0"/>
+            </linearGradient>
+            <radialGradient id="radarBeam" gradientUnits="userSpaceOnUse" cx="163" cy="163" r="145">
+              <stop offset=".3" stop-color="#650f35" stop-opacity="0"/>
+              <stop offset=".45" stop-color="#650f35" stop-opacity=".025"/>
+              <stop offset=".7" stop-color="#650f35" stop-opacity=".065"/>
+              <stop offset=".9" stop-color="#650f35" stop-opacity=".08"/>
+              <stop offset="1" stop-color="#650f35" stop-opacity=".05"/>
+            </radialGradient>
+            <linearGradient id="radarBeamEdge" gradientUnits="userSpaceOnUse" x1="238" y1="33" x2="190.5" y2="115.4">
+              <stop stop-color="#ffe7ef" stop-opacity=".19"/>
+              <stop offset=".48" stop-color="#ffd1df" stop-opacity=".11"/>
+              <stop offset=".82" stop-color="#ffc6d7" stop-opacity=".045"/>
+              <stop offset="1" stop-color="#ffc6d7" stop-opacity="0"/>
+            </linearGradient>
+            <filter id="radarSoft" x="-15%" y="-15%" width="130%" height="130%">
+              <feGaussianBlur stdDeviation="1.35"/>
+            </filter>
+            <filter id="radarHalo" x="-20%" y="-20%" width="140%" height="140%">
+              <feGaussianBlur stdDeviation="5.2"/>
+            </filter>
+            <filter id="gaugeBlur"><feGaussianBlur stdDeviation="11"/></filter>
+          </defs>
+          <path d="M11.34 136.26A154 154 0 0 1 307.71 110.33" fill="none" stroke-width="3.2" stroke-linecap="round" class="arc-shadow"/>
+          <path d="M6.91 135.48A158.5 158.5 0 0 1 311.94 108.79" fill="none" stroke-width="2.2" stroke-linecap="round" class="outer-ring"/>
+          <path d="M19.22 137.65A146 146 0 0 1 236 36.56" fill="none" stroke-width="1.15" class="fine-ring"/>
+          <path d="M238 33.1A150 150 0 0 1 277.9 66.6L199.8 119.5A55 55 0 0 0 190.5 115.4Z" fill="#6a1238" opacity=".022" filter="url(#radarHalo)"/>
+          <path class="radar-sweep" d="M238 33.1A150 150 0 0 1 277.9 66.6L199.8 119.5A55 55 0 0 0 190.5 115.4Z" fill="url(#radarBeam)" filter="url(#radarSoft)"/>
+          <path d="M238 33.1L190.5 115.4" fill="none" stroke="url(#radarBeamEdge)" stroke-width="1.25" stroke-linecap="round" filter="url(#radarSoft)"/>
+          <g id="gaugeTicks"></g>
+          <ellipse cx="225" cy="166" rx="92" ry="76" fill="#fff" opacity=".055" filter="url(#gaugeBlur)"/>
+        </svg>
+
+        <div class="metric metric--speed"><span class="dot-number" data-dots="118" aria-label="118"></span><span class="metric__unit">ms</span></div>
+        <p class="caption">Average global<br>response</p>
+        <button class="learn-more" type="button">Learn More</button>
+      </article>
+
+      <article class="card card--context">
+        <svg class="card__grain" viewBox="0 0 429 554" preserveAspectRatio="none" aria-hidden="true"><rect width="429" height="554" filter="url(#cardNoise)"/></svg>
+        <h2 class="card__title">Context Window<br>Long-form Understanding</h2>
+        <div class="context-glow" aria-hidden="true">
+          <svg class="context-backdrop" viewBox="0 0 429 554" preserveAspectRatio="none">
+            <defs>
+              <!-- ===== tile wall: 3 top / 3 middle / 1 bottom ===== -->
+              <linearGradient id="tTLf" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0" stop-color="#d4b0ee" stop-opacity=".05"/>
+                <stop offset="1" stop-color="#c6bbff" stop-opacity=".18"/>
+              </linearGradient>
+              <linearGradient id="tTCf" x1="0" y1="0" x2="1" y2="0">
+                <stop offset="0" stop-color="#d5c2ff" stop-opacity=".22"/>
+                <stop offset=".30" stop-color="#e0bdff" stop-opacity=".26"/>
+                <stop offset=".62" stop-color="#f2a0ee" stop-opacity=".32"/>
+                <stop offset="1" stop-color="#ff96da" stop-opacity=".34"/>
+              </linearGradient>
+              <linearGradient id="tTCshade" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0" stop-color="#6f3fa0" stop-opacity="0"/>
+                <stop offset=".72" stop-color="#6f3fa0" stop-opacity="0"/>
+                <stop offset=".9" stop-color="#6e2f90" stop-opacity=".10"/>
+                <stop offset="1" stop-color="#8a1a62" stop-opacity=".18"/>
+              </linearGradient>
+              <linearGradient id="tTCshadeX" x1="0" y1="0" x2="1" y2="0">
+                <stop offset="0" stop-color="#000" stop-opacity="0"/>
+                <stop offset=".52" stop-color="#888" stop-opacity="1"/>
+                <stop offset="1" stop-color="#fff" stop-opacity="1"/>
+              </linearGradient>
+              <mask id="tTCshadeM">
+                <rect x="80" y="14" width="263" height="158" fill="url(#tTCshadeX)"/>
+              </mask>
+              <linearGradient id="tTRf" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0" stop-color="#ffe8da" stop-opacity=".56"/>
+                <stop offset=".55" stop-color="#f9c6d0" stop-opacity=".26"/>
+                <stop offset="1" stop-color="#eba4bf" stop-opacity=".08"/>
+              </linearGradient>
+              <linearGradient id="tMLf" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0" stop-color="#e6c8ff" stop-opacity=".46"/>
+                <stop offset=".5" stop-color="#e8d6ff" stop-opacity=".48"/>
+                <stop offset="1" stop-color="#e2dcff" stop-opacity=".38"/>
+              </linearGradient>
+              <linearGradient id="tMLx" x1="0" y1="0" x2="1" y2="0">
+                <stop offset="0" stop-color="#8a7cc2" stop-opacity=".24"/>
+                <stop offset=".38" stop-color="#8a7cc2" stop-opacity=".13"/>
+                <stop offset=".6" stop-color="#c2b6ff" stop-opacity="0"/>
+                <stop offset="1" stop-color="#c2a6ff" stop-opacity=".12"/>
+              </linearGradient>
+              <linearGradient id="tMCf" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0" stop-color="#d8c2f4" stop-opacity=".18"/>
+                <stop offset="1" stop-color="#e09ad4" stop-opacity=".12"/>
+              </linearGradient>
+              <linearGradient id="mrLShade" x1="0" y1="0" x2="1" y2="0">
+                <stop offset="0" stop-color="#700a44" stop-opacity=".26"/>
+                <stop offset=".12" stop-color="#700a44" stop-opacity=".10"/>
+                <stop offset=".30" stop-color="#700a44" stop-opacity="0"/>
+              </linearGradient>
+              <linearGradient id="tMRf" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0" stop-color="#e858b8" stop-opacity=".52"/>
+                <stop offset=".55" stop-color="#e6459c" stop-opacity=".46"/>
+                <stop offset="1" stop-color="#de74ba" stop-opacity=".16"/>
+              </linearGradient>
+              <linearGradient id="tB3x" x1="0" y1="0" x2="1" y2="0">
+                <stop offset="0" stop-color="#b06a80" stop-opacity=".08"/>
+                <stop offset=".30" stop-color="#f2a0a8" stop-opacity=".26"/>
+                <stop offset=".55" stop-color="#f2a4b3" stop-opacity=".43"/>
+                <stop offset=".78" stop-color="#dd8fa0" stop-opacity=".24"/>
+                <stop offset="1" stop-color="#b2717d" stop-opacity=".10"/>
+              </linearGradient>
+              <linearGradient id="tB3fadeY" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0" stop-color="#fff" stop-opacity="1"/>
+                <stop offset=".45" stop-color="#9e9e9e" stop-opacity="1"/>
+                <stop offset="1" stop-color="#3a3a3a" stop-opacity="1"/>
+              </linearGradient>
+              <mask id="tB3m">
+                <rect x="-30" y="352" width="500" height="130" fill="url(#tB3fadeY)"/>
+              </mask>
+              <!-- glossy top sheen shared by tiles -->
+              <linearGradient id="tSheen" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0" stop-color="#ffffff" stop-opacity=".13"/>
+                <stop offset=".16" stop-color="#ffffff" stop-opacity=".04"/>
+                <stop offset=".3" stop-color="#ffffff" stop-opacity="0"/>
+              </linearGradient>
+              <!-- grout gradients -->
+              <linearGradient id="gV1" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0" stop-color="#4a3a86" stop-opacity=".03"/>
+                <stop offset=".45" stop-color="#41307a" stop-opacity=".05"/>
+                <stop offset="1" stop-color="#3a2a6e" stop-opacity=".04"/>
+              </linearGradient>
+              <linearGradient id="gV2" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0" stop-color="#7a2258" stop-opacity="0"/>
+                <stop offset=".3" stop-color="#84105a" stop-opacity=".14"/>
+                <stop offset=".55" stop-color="#7c0e4e" stop-opacity=".56"/>
+                <stop offset="1" stop-color="#7a1a50" stop-opacity=".12"/>
+              </linearGradient>
+              <linearGradient id="gH1" x1="0" y1="0" x2="1" y2="0">
+                <stop offset="0" stop-color="#4a3a86" stop-opacity=".05"/>
+                <stop offset=".25" stop-color="#5c3078" stop-opacity=".06"/>
+                <stop offset=".5" stop-color="#701c6a" stop-opacity=".44"/>
+                <stop offset=".72" stop-color="#7a1258" stop-opacity=".38"/>
+                <stop offset="1" stop-color="#6e1a66" stop-opacity=".16"/>
+              </linearGradient>
+              <linearGradient id="gH2" x1="0" y1="0" x2="1" y2="0">
+                <stop offset="0" stop-color="#3c2a5e" stop-opacity=".02"/>
+                <stop offset=".5" stop-color="#4c2050" stop-opacity="0"/>
+                <stop offset="1" stop-color="#441c3e" stop-opacity=".05"/>
+              </linearGradient>
+              <!-- global fade-in below the header -->
+              <linearGradient id="gH2r" x1="0" y1="0" x2="1" y2="0">
+                <stop offset="0" stop-color="#4c1c46" stop-opacity=".05"/>
+                <stop offset="1" stop-color="#3a1632" stop-opacity=".30"/>
+              </linearGradient>
+              <linearGradient id="wallFadeY" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0" stop-color="#000"/>
+                <stop offset=".07" stop-color="#3c3c3c"/>
+                <stop offset=".17" stop-color="#c4c4c4"/>
+                <stop offset=".24" stop-color="#fff"/>
+                <stop offset="1" stop-color="#fff"/>
+              </linearGradient>
+              <mask id="wallM">
+                <rect x="0" y="0" width="429" height="554" fill="url(#wallFadeY)"/>
+              </mask>
+              <radialGradient id="hazeTR" cx=".5" cy=".5" r=".5">
+                <stop offset="0" stop-color="#ffe2ea" stop-opacity=".26"/>
+                <stop offset=".55" stop-color="#ffd8ec" stop-opacity=".10"/>
+                <stop offset="1" stop-color="#ffd8ec" stop-opacity="0"/>
+              </radialGradient>
+              <radialGradient id="mlViolet" cx=".5" cy=".5" r=".5">
+                <stop offset="0" stop-color="#c8b0ff" stop-opacity=".30"/>
+                <stop offset="1" stop-color="#c8b0ff" stop-opacity="0"/>
+              </radialGradient>
+              <radialGradient id="mlDim" cx=".5" cy=".5" r=".5">
+                <stop offset="0" stop-color="#5a4488" stop-opacity=".20"/>
+                <stop offset="1" stop-color="#5a4488" stop-opacity="0"/>
+              </radialGradient>
+              <radialGradient id="jxLight" cx=".5" cy=".5" r=".5">
+                <stop offset="0" stop-color="#ccd6ff" stop-opacity=".36"/>
+                <stop offset="1" stop-color="#cfd4ff" stop-opacity="0"/>
+              </radialGradient>
+              <radialGradient id="dbPlum" cx=".5" cy=".5" r=".5">
+                <stop offset="0" stop-color="#7a5a9e" stop-opacity=".14"/>
+                <stop offset="1" stop-color="#7a5a9e" stop-opacity="0"/>
+              </radialGradient>
+              <linearGradient id="deepX" x1="0" y1="0" x2="1" y2="0">
+                <stop offset="0" stop-color="#2a0c1e" stop-opacity=".48"/>
+                <stop offset=".1" stop-color="#5a1828" stop-opacity=".32"/>
+                <stop offset=".2" stop-color="#c04448" stop-opacity=".31"/>
+                <stop offset=".35" stop-color="#ea646a" stop-opacity=".29"/>
+                <stop offset=".5" stop-color="#d67a80" stop-opacity=".26"/>
+                <stop offset=".58" stop-color="#eeb0ba" stop-opacity=".38"/>
+                <stop offset=".68" stop-color="#f4a8b6" stop-opacity=".44"/>
+                <stop offset=".8" stop-color="#e08894" stop-opacity=".32"/>
+                <stop offset="1" stop-color="#8aa8cc" stop-opacity=".16"/>
+              </linearGradient>
+              <linearGradient id="deepFadeY" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0" stop-color="#000"/>
+                <stop offset=".18" stop-color="#fff"/>
+                <stop offset=".92" stop-color="#fff"/>
+                <stop offset="1" stop-color="#d8d8d8"/>
+              </linearGradient>
+              <mask id="deepM">
+                <rect x="-24" y="384" width="480" height="170" fill="url(#deepFadeY)"/>
+              </mask>
+              <radialGradient id="dbRed2" cx=".5" cy=".5" r=".5">
+                <stop offset="0" stop-color="#b01828" stop-opacity=".14"/>
+                <stop offset=".65" stop-color="#b01828" stop-opacity=".06"/>
+                <stop offset="1" stop-color="#b01828" stop-opacity="0"/>
+              </radialGradient>
+              <radialGradient id="dbGlow" cx=".5" cy=".5" r=".5">
+                <stop offset="0" stop-color="#f6aab6" stop-opacity=".33"/>
+                <stop offset=".6" stop-color="#f2a4b3" stop-opacity=".06"/>
+                <stop offset="1" stop-color="#f2a4b3" stop-opacity="0"/>
+              </radialGradient>
+              <radialGradient id="dbRed" cx=".5" cy=".5" r=".5">
+                <stop offset="0" stop-color="#e03840" stop-opacity=".40"/>
+                <stop offset=".65" stop-color="#d84048" stop-opacity=".07"/>
+                <stop offset="1" stop-color="#d84048" stop-opacity="0"/>
+              </radialGradient>
+              <radialGradient id="dbDark" cx=".5" cy=".5" r=".5">
+                <stop offset="0" stop-color="#14060c" stop-opacity=".46"/>
+                <stop offset=".6" stop-color="#20080f" stop-opacity=".06"/>
+                <stop offset="1" stop-color="#20080f" stop-opacity="0"/>
+              </radialGradient>
+              <filter id="panelNoiseF" x="0" y="0" width="100%" height="100%">
+                <feTurbulence type="fractalNoise" baseFrequency=".9" numOctaves="2" seed="71" stitchTiles="stitch"/>
+                <feColorMatrix type="saturate" values="0"/>
+                <feComponentTransfer>
+                  <feFuncR type="linear" slope="1.3" intercept="-0.452"/>
+                  <feFuncG type="linear" slope="1.3" intercept="-0.452"/>
+                  <feFuncB type="linear" slope="1.3" intercept="-0.452"/>
+                  <feFuncA type="table" tableValues="1 1"/>
+                </feComponentTransfer>
+              </filter>
+              <filter id="deepNoiseF" x="0" y="0" width="100%" height="100%">
+                <feTurbulence type="fractalNoise" baseFrequency=".8" numOctaves="3" seed="57" stitchTiles="stitch"/>
+                <feColorMatrix type="saturate" values="0"/>
+                <feComponentTransfer>
+                  <feFuncR type="linear" slope="1.7" intercept="-0.744"/>
+                  <feFuncG type="linear" slope="1.7" intercept="-0.744"/>
+                  <feFuncB type="linear" slope="1.7" intercept="-0.744"/>
+                  <feFuncA type="table" tableValues="1 1"/>
+                </feComponentTransfer>
+              </filter>
+              <filter id="wallNoiseF2" x="0" y="0" width="100%" height="100%">
+                <feTurbulence type="fractalNoise" baseFrequency=".8" numOctaves="2" seed="29" stitchTiles="stitch"/>
+                <feColorMatrix type="saturate" values="0"/>
+                <feComponentTransfer>
+                  <feFuncR type="linear" slope="1.0" intercept="-0.232"/>
+                  <feFuncG type="linear" slope="1.0" intercept="-0.232"/>
+                  <feFuncB type="linear" slope="1.0" intercept="-0.232"/>
+                  <feFuncA type="table" tableValues="1 1"/>
+                </feComponentTransfer>
+              </filter>
+              <filter id="wallNoiseF" x="0" y="0" width="100%" height="100%">
+                <feTurbulence type="fractalNoise" baseFrequency=".85" numOctaves="2" seed="13" stitchTiles="stitch"/>
+                <feColorMatrix type="saturate" values="0"/>
+                <feComponentTransfer>
+                  <feFuncR type="linear" slope="1.0" intercept="-0.232"/>
+                  <feFuncG type="linear" slope="1.0" intercept="-0.232"/>
+                  <feFuncB type="linear" slope="1.0" intercept="-0.232"/>
+                  <feFuncA type="table" tableValues="1 1"/>
+                </feComponentTransfer>
+              </filter>
+              <filter id="maskSoft"><feGaussianBlur stdDeviation="9"/></filter>
+              <mask id="noiseM">
+                <rect x="0" y="0" width="429" height="554" fill="#000"/>
+                <g filter="url(#maskSoft)">
+                <rect x="0" y="90" width="88" height="80" fill="#2a2a2a"/>
+                <rect x="88" y="90" width="247" height="85" fill="#707070"/>
+                <rect x="335" y="90" width="94" height="85" fill="#606060"/>
+                <rect x="0" y="175" width="88" height="176" fill="#ffffff"/>
+                <rect x="335" y="175" width="94" height="176" fill="#ffffff"/>
+                <rect x="0" y="351" width="429" height="70" fill="#848484"/>
+                <rect x="0" y="421" width="429" height="133" fill="#b0b0b0"/>
+                </g>
+              </mask>
+              <filter id="tileSoft" x="-10%" y="-10%" width="120%" height="120%">
+                <feGaussianBlur stdDeviation="3.4"/>
+              </filter>
+              <filter id="groutSoft" x="-120%" y="-120%" width="340%" height="340%">
+                <feGaussianBlur stdDeviation="6.5"/>
+              </filter>
+            </defs>
+            <g mask="url(#wallM)">
+              <g filter="url(#tileSoft)">
+                <!-- bottom row: one wide tile -->
+                <g mask="url(#tB3m)">
+                  <rect x="-24" y="354" width="480" height="126" rx="15" fill="url(#tB3x)"/>
+                  <rect x="-24" y="354" width="480" height="46" rx="15" fill="url(#tSheen)"/>
+                </g>
+                <!-- middle row -->
+                <rect x="-24" y="177" width="108" height="174" rx="15" fill="url(#tMLf)"/>
+                <rect x="-24" y="177" width="108" height="174" rx="15" fill="url(#tMLx)"/>
+                <rect x="-24" y="177" width="108" height="52" rx="15" fill="url(#tSheen)"/>
+                <rect x="88" y="177" width="247" height="174" rx="15" fill="url(#tMCf)"/>
+                <rect x="344" y="175" width="113" height="176" rx="15" fill="url(#tMRf)"/>
+                <rect x="344" y="175" width="113" height="176" rx="15" fill="url(#mrLShade)"/>
+                <!-- top row -->
+                <rect x="-24" y="22" width="106" height="149" rx="15" fill="url(#tTLf)"/>
+                <rect x="88" y="22" width="247" height="150" rx="15" fill="url(#tTCf)"/>
+                <rect x="88" y="22" width="247" height="150" rx="15" fill="url(#tTCshade)" mask="url(#tTCshadeM)"/>
+                <rect x="88" y="22" width="247" height="46" rx="15" fill="url(#tSheen)"/>
+                <rect x="346" y="22" width="111" height="147" rx="15" fill="url(#tTRf)"/>
+                <rect x="346" y="22" width="111" height="46" rx="15" fill="url(#tSheen)"/>
+              </g>
+              <ellipse cx="352" cy="86" rx="140" ry="108" fill="url(#hazeTR)"/>
+              <ellipse cx="75" cy="150" rx="82" ry="54" fill="url(#jxLight)"/>
+              <ellipse cx="8" cy="334" rx="76" ry="58" fill="url(#mlDim)"/>
+              <ellipse cx="56" cy="215" rx="56" ry="62" fill="url(#mlViolet)"/>
+              <g mask="url(#deepM)">
+                <rect x="-24" y="384" width="480" height="170" fill="url(#deepX)"/>
+              </g>
+              <!-- soft grout between tiles -->
+              <g filter="url(#groutSoft)">
+                <rect x="81" y="30" width="8" height="150" fill="url(#gV1)"/>
+                <rect x="338" y="30" width="8" height="322" fill="url(#gV2)"/>
+                <rect x="0" y="167" width="429" height="12" fill="url(#gH1)"/>
+                <rect x="0" y="350" width="110" height="9" fill="url(#gH2)"/>
+                <rect x="352" y="358" width="77" height="12" fill="url(#gH2r)"/>
+                <rect x="350" y="330" width="79" height="56" fill="#6a1440" opacity=".24"/>
+                <rect x="340" y="235" width="89" height="105" fill="#c02080" opacity=".10"/>
+              </g>
+              <g style="mix-blend-mode:soft-light" opacity=".34">
+                <rect x="0" y="0" width="429" height="554" filter="url(#wallNoiseF)" mask="url(#noiseM)"/>
+              </g>
+              <g style="mix-blend-mode:soft-light" opacity=".22">
+                <rect x="0" y="400" width="429" height="154" filter="url(#deepNoiseF)"/>
+              </g>
+              <g style="mix-blend-mode:soft-light" opacity=".3">
+                <rect x="0" y="177" width="88" height="174" filter="url(#wallNoiseF2)"/>
+                <rect x="335" y="175" width="94" height="176" filter="url(#wallNoiseF2)"/>
+              </g>
+            </g>
+          </svg>
+        </div>
+        <div class="context-window" aria-hidden="true">
+          <svg class="context-window__grain" viewBox="0 0 252 166" preserveAspectRatio="none">
+            <rect width="252" height="166" filter="url(#panelNoiseF)"/>
+          </svg>
+          <div class="window-lines"><span></span><span></span><span></span></div>
+        </div>
+        <div class="metric metric--context"><span class="dot-number" data-dots="2.4" aria-label="2.4"></span><span class="metric__unit">M</span></div>
+        <p class="caption">Tokens processed<br>simultaneously</p>
+        <button class="learn-more" type="button">Learn More</button>
+      </article>
+
+      <article class="card card--connections">
+        <svg class="card__grain" viewBox="0 0 429 554" preserveAspectRatio="none" aria-hidden="true"><rect width="429" height="554" filter="url(#cardNoise)"/></svg>
+        <h2 class="card__title">Intelligent Connections<br>Cross-Source Context</h2>
+
+        <svg class="connections-map" viewBox="0 0 429 238" preserveAspectRatio="none" aria-hidden="true">
+          <g fill="none" stroke="#fff" stroke-width="1">
+            <path opacity=".20" d="M0 5H128c27 0 36 7 39 26 2 16 9 22 24 22h106c16 0 23-8 25-25 2-16 10-23 31-23h76"/>
+            <path opacity=".42" d="M0 61h95c14 0 22-6 27-20 4-13 12-20 27-20h115c15 0 23 6 27 20 5 14 13 20 28 20h110"/>
+            <path opacity=".82" d="M0 117h88c15 0 22-8 25-25 4-24 12-31 31-31h129c20 0 27 7 31 31 3 17 10 25 26 25h99"/>
+            <path opacity=".32" d="M0 117h46c15 0 22 8 26 25 5 23 12 31 31 31h174c18 0 25-8 30-31 4-17 11-25 26-25h96"/>
+            <path opacity=".40" d="M0 173h87c15 0 22 7 27 25 4 15 11 22 28 22h140c17 0 25-7 29-22 5-18 12-25 28-25h90"/>
+            <path opacity=".19" d="M0 228h120c17 0 25-5 28-18 4-15 10-20 28-20h81c18 0 25 6 28 20 4 13 11 18 28 18h116"/>
+            <path opacity=".28" d="M0 5H429M0 61H429M0 117H429M0 173H429M0 228H429"/>
+          </g>
+          <g>
+            <circle cx="45" cy="117" r="6.5" fill="#fff"/>
+            <circle cx="133" cy="61" r="6.5" fill="#fff4a7"/>
+            <circle cx="189" cy="61" r="6.5" fill="#fff1a4"/>
+            <circle cx="319" cy="61" r="6.5" fill="#fff4a6"/>
+            <circle cx="319" cy="117" r="6.5" fill="#fff2a0"/>
+          </g>
+        </svg>
+
+        <div class="metric metric--connections"><span class="dot-number" data-dots="16" aria-label="16"></span><span class="metric__unit">K</span></div>
+        <p class="caption">Connected data<br>sources</p>
+        <button class="learn-more" type="button">Learn More</button>
+      </article>
+    </section>
+  </main>
+
+  <script>
+    (() => {
+      const glyphs = {
+        "0":["01110","10001","10011","10101","11001","10001","01110"],
+        "1":["010","110","010","010","010","010","111"],
+        "2":["01110","10001","00001","00010","00100","01000","11111"],
+        "3":["11110","00001","00001","01110","00001","00001","11110"],
+        "4":["00010","00110","01010","10010","11111","00010","00010"],
+        "5":["11111","10000","10000","11110","00001","00001","11110"],
+        "6":["01110","10000","10000","11110","10001","10001","01110"],
+        "7":["11111","00001","00010","00100","01000","01000","01000"],
+        "8":["01110","10001","10001","01110","10001","10001","01110"],
+        "9":["01110","10001","10001","01111","00001","00001","01110"],
+        ".":["0","0","0","0","0","0","1"],
+        "I":["111","010","010","010","010","010","111"],
+        "a":["00000","00000","01110","00001","01111","10001","01111"],
+        "e":["00000","00000","01110","10001","11111","10000","01110"],
+        "g":["00000","00000","01111","10001","01111","00001","01110"],
+        "i":["1","0","1","1","1","1","1"],
+        "l":["10","10","10","10","10","10","01"],
+        "n":["00000","00000","11110","10001","10001","10001","10001"],
+        "t":["010","010","111","010","010","010","001"],
+        "r":["00000","00000","10110","11001","10000","10000","10000"]
+      };
+
+      const svgNS = "http://www.w3.org/2000/svg";
+
+      function makeDots(node, word) {
+        const pitchX = node.classList.contains("dot-word") ? 4 : 5;
+        const pitchY = 4;
+        const gap = 1;
+        const dotRadius = node.classList.contains("dot-word") ? 1.8 :
+          node.closest(".metric--context") ? 2.32 : 1.55;
+        let x = 0;
+        const data = [];
+
+        [...word].forEach((char, index) => {
+          const rows = glyphs[char] || glyphs[char.toLowerCase()] || glyphs["0"];
+          const width = rows[0].length;
+          rows.forEach((row, y) => [...row].forEach((on, col) => {
+            if (on === "1") data.push([x + col * pitchX + 1.55, y * pitchY + 1.55]);
+          }));
+          x += width * pitchX + (index === word.length - 1 ? 0 : gap * pitchX);
+        });
+
+        const svg = document.createElementNS(svgNS, "svg");
+        svg.classList.add("dot-svg");
+        svg.setAttribute("viewBox", `0 0 ${Math.max(1, x)} 28`);
+        svg.setAttribute("width", "100%");
+        svg.setAttribute("role", "img");
+        svg.setAttribute("aria-label", node.getAttribute("aria-label") || word);
+
+        data.forEach(([cx, cy]) => {
+          const circle = document.createElementNS(svgNS, "circle");
+          circle.setAttribute("cx", cx);
+          circle.setAttribute("cy", cy);
+          circle.setAttribute("r", dotRadius);
+          circle.setAttribute("fill", "currentColor");
+          svg.appendChild(circle);
+        });
+        node.replaceChildren(svg);
+      }
+
+      document.querySelectorAll("[data-dots]").forEach(node => makeDots(node, node.dataset.dots));
+
+      const tickGroup = document.getElementById("gaugeTicks");
+      for (let i = 0; i <= 22; i++) {
+        const angle = (190 + i * 5) * Math.PI / 180;
+        const outer = 142;
+        const inner = i % 5 === 0 ? 129 : 133;
+        const line = document.createElementNS(svgNS, "line");
+        line.classList.add("tick");
+        line.setAttribute("x1", 163 + Math.cos(angle) * inner);
+        line.setAttribute("y1", 163 + Math.sin(angle) * inner);
+        line.setAttribute("x2", 163 + Math.cos(angle) * outer);
+        line.setAttribute("y2", 163 + Math.sin(angle) * outer);
+        line.setAttribute("stroke-width", i % 5 === 0 ? "1.5" : "1");
+        tickGroup.appendChild(line);
+      }
+
+    })();
+  </script>
+</body>
+</html>

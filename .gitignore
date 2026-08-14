@@ -1,0 +1,13 @@
+# The production page embeds its image assets directly.
+assets/
+
+# Downloaded repository archives and extracted copies.
+*.zip
+intelligent-performance-ui-main/
+
+# Operating-system and editor metadata.
+.DS_Store
+Thumbs.db
+desktop.ini
+.idea/
+.vscode/
